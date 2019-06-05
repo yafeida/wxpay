@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.monkey.web.dao.WxUserMapper" >
+  <resultMap id="BaseResultMap" type="com.monkey.web.domain.WxUser" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="wx_name" property="wxName" jdbcType="VARCHAR" />
+    <result column="contact_name" property="contactName" jdbcType="VARCHAR" />
+    <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="kf_phone" property="kfPhone" jdbcType="VARCHAR" />
+    <result column="kf_wx" property="kfWx" jdbcType="VARCHAR" />
+    <result column="kf_wx_ewm" property="kfWxEwm" jdbcType="VARCHAR" />
+    <result column="bill_name" property="billName" jdbcType="VARCHAR" />
+    <result column="bill_key" property="billKey" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="channel_person" property="channelPerson" jdbcType="VARCHAR" />
+    <result column="config_id" property="configId" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title, wx_name, contact_name, contact_phone, kf_phone, kf_wx, kf_wx_ewm, bill_name, 
+    bill_key, create_time, create_user, channel_person, config_id, del_flag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.monkey.web.domain.WxUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wx_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wx_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wx_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.monkey.web.domain.WxUserExample" >
+    delete from wx_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.monkey.web.domain.WxUser" >
+    insert into wx_user (id, title, wx_name, 
+      contact_name, contact_phone, kf_phone, 
+      kf_wx, kf_wx_ewm, bill_name, 
+      bill_key, create_time, create_user, 
+      channel_person, config_id, del_flag
+      )
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{wxName,jdbcType=VARCHAR}, 
+      #{contactName,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, #{kfPhone,jdbcType=VARCHAR}, 
+      #{kfWx,jdbcType=VARCHAR}, #{kfWxEwm,jdbcType=VARCHAR}, #{billName,jdbcType=VARCHAR}, 
+      #{billKey,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{channelPerson,jdbcType=VARCHAR}, #{configId,jdbcType=VARCHAR}, #{delFlag,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.monkey.web.domain.WxUser" >
+    insert into wx_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="wxName != null" >
+        wx_name,
+      </if>
+      <if test="contactName != null" >
+        contact_name,
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone,
+      </if>
+      <if test="kfPhone != null" >
+        kf_phone,
+      </if>
+      <if test="kfWx != null" >
+        kf_wx,
+      </if>
+      <if test="kfWxEwm != null" >
+        kf_wx_ewm,
+      </if>
+      <if test="billName != null" >
+        bill_name,
+      </if>
+      <if test="billKey != null" >
+        bill_key,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="channelPerson != null" >
+        channel_person,
+      </if>
+      <if test="configId != null" >
+        config_id,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="wxName != null" >
+        #{wxName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null" >
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="kfPhone != null" >
+        #{kfPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="kfWx != null" >
+        #{kfWx,jdbcType=VARCHAR},
+      </if>
+      <if test="kfWxEwm != null" >
+        #{kfWxEwm,jdbcType=VARCHAR},
+      </if>
+      <if test="billName != null" >
+        #{billName,jdbcType=VARCHAR},
+      </if>
+      <if test="billKey != null" >
+        #{billKey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="channelPerson != null" >
+        #{channelPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="configId != null" >
+        #{configId,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.monkey.web.domain.WxUserExample" resultType="java.lang.Integer" >
+    select count(*) from wx_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wx_user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxName != null" >
+        wx_name = #{record.wxName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactName != null" >
+        contact_name = #{record.contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactPhone != null" >
+        contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kfPhone != null" >
+        kf_phone = #{record.kfPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kfWx != null" >
+        kf_wx = #{record.kfWx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kfWxEwm != null" >
+        kf_wx_ewm = #{record.kfWxEwm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billName != null" >
+        bill_name = #{record.billName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billKey != null" >
+        bill_key = #{record.billKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channelPerson != null" >
+        channel_person = #{record.channelPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.configId != null" >
+        config_id = #{record.configId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delFlag != null" >
+        del_flag = #{record.delFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wx_user
+    set id = #{record.id,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      wx_name = #{record.wxName,jdbcType=VARCHAR},
+      contact_name = #{record.contactName,jdbcType=VARCHAR},
+      contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      kf_phone = #{record.kfPhone,jdbcType=VARCHAR},
+      kf_wx = #{record.kfWx,jdbcType=VARCHAR},
+      kf_wx_ewm = #{record.kfWxEwm,jdbcType=VARCHAR},
+      bill_name = #{record.billName,jdbcType=VARCHAR},
+      bill_key = #{record.billKey,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=VARCHAR},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      channel_person = #{record.channelPerson,jdbcType=VARCHAR},
+      config_id = #{record.configId,jdbcType=VARCHAR},
+      del_flag = #{record.delFlag,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.monkey.web.domain.WxUser" >
+    update wx_user
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="wxName != null" >
+        wx_name = #{wxName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null" >
+        contact_name = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="kfPhone != null" >
+        kf_phone = #{kfPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="kfWx != null" >
+        kf_wx = #{kfWx,jdbcType=VARCHAR},
+      </if>
+      <if test="kfWxEwm != null" >
+        kf_wx_ewm = #{kfWxEwm,jdbcType=VARCHAR},
+      </if>
+      <if test="billName != null" >
+        bill_name = #{billName,jdbcType=VARCHAR},
+      </if>
+      <if test="billKey != null" >
+        bill_key = #{billKey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="channelPerson != null" >
+        channel_person = #{channelPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="configId != null" >
+        config_id = #{configId,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.monkey.web.domain.WxUser" >
+    update wx_user
+    set title = #{title,jdbcType=VARCHAR},
+      wx_name = #{wxName,jdbcType=VARCHAR},
+      contact_name = #{contactName,jdbcType=VARCHAR},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      kf_phone = #{kfPhone,jdbcType=VARCHAR},
+      kf_wx = #{kfWx,jdbcType=VARCHAR},
+      kf_wx_ewm = #{kfWxEwm,jdbcType=VARCHAR},
+      bill_name = #{billName,jdbcType=VARCHAR},
+      bill_key = #{billKey,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      channel_person = #{channelPerson,jdbcType=VARCHAR},
+      config_id = #{configId,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
