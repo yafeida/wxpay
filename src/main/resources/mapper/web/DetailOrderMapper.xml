@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.monkey.web.dao.DetailOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.monkey.web.domain.DetailOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="brank" property="brank" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="phone_section" property="phoneSection" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="sim" property="sim" jdbcType="VARCHAR" />
+    <result column="phone_package" property="phonePackage" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="extract_date" property="extractDate" jdbcType="VARCHAR" />
+    <result column="agent_name" property="agentName" jdbcType="VARCHAR" />
+    <result column="channel_name" property="channelName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, brank, area, phone_section, phone, sim, phone_package, price, remark, extract_date, 
+    agent_name, channel_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.monkey.web.domain.DetailOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from detail_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from detail_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from detail_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.monkey.web.domain.DetailOrderExample" >
+    delete from detail_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.monkey.web.domain.DetailOrder" >
+    insert into detail_order (id, brank, area, 
+      phone_section, phone, sim, 
+      phone_package, price, remark, 
+      extract_date, agent_name, channel_name
+      )
+    values (#{id,jdbcType=INTEGER}, #{brank,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{phoneSection,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{sim,jdbcType=VARCHAR}, 
+      #{phonePackage,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{extractDate,jdbcType=VARCHAR}, #{agentName,jdbcType=VARCHAR}, #{channelName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.monkey.web.domain.DetailOrder" >
+    insert into detail_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="brank != null" >
+        brank,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="phoneSection != null" >
+        phone_section,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="sim != null" >
+        sim,
+      </if>
+      <if test="phonePackage != null" >
+        phone_package,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="extractDate != null" >
+        extract_date,
+      </if>
+      <if test="agentName != null" >
+        agent_name,
+      </if>
+      <if test="channelName != null" >
+        channel_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="brank != null" >
+        #{brank,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneSection != null" >
+        #{phoneSection,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sim != null" >
+        #{sim,jdbcType=VARCHAR},
+      </if>
+      <if test="phonePackage != null" >
+        #{phonePackage,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="extractDate != null" >
+        #{extractDate,jdbcType=VARCHAR},
+      </if>
+      <if test="agentName != null" >
+        #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null" >
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.monkey.web.domain.DetailOrderExample" resultType="java.lang.Integer" >
+    select count(*) from detail_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update detail_order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.brank != null" >
+        brank = #{record.brank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneSection != null" >
+        phone_section = #{record.phoneSection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sim != null" >
+        sim = #{record.sim,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phonePackage != null" >
+        phone_package = #{record.phonePackage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extractDate != null" >
+        extract_date = #{record.extractDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentName != null" >
+        agent_name = #{record.agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channelName != null" >
+        channel_name = #{record.channelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update detail_order
+    set id = #{record.id,jdbcType=INTEGER},
+      brank = #{record.brank,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      phone_section = #{record.phoneSection,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      sim = #{record.sim,jdbcType=VARCHAR},
+      phone_package = #{record.phonePackage,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      extract_date = #{record.extractDate,jdbcType=VARCHAR},
+      agent_name = #{record.agentName,jdbcType=VARCHAR},
+      channel_name = #{record.channelName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.monkey.web.domain.DetailOrder" >
+    update detail_order
+    <set >
+      <if test="brank != null" >
+        brank = #{brank,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneSection != null" >
+        phone_section = #{phoneSection,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sim != null" >
+        sim = #{sim,jdbcType=VARCHAR},
+      </if>
+      <if test="phonePackage != null" >
+        phone_package = #{phonePackage,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="extractDate != null" >
+        extract_date = #{extractDate,jdbcType=VARCHAR},
+      </if>
+      <if test="agentName != null" >
+        agent_name = #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null" >
+        channel_name = #{channelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.monkey.web.domain.DetailOrder" >
+    update detail_order
+    set brank = #{brank,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      phone_section = #{phoneSection,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      sim = #{sim,jdbcType=VARCHAR},
+      phone_package = #{phonePackage,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      extract_date = #{extractDate,jdbcType=VARCHAR},
+      agent_name = #{agentName,jdbcType=VARCHAR},
+      channel_name = #{channelName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
